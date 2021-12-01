@@ -1,18 +1,14 @@
 from loader import load_ints
 
 
-def increases(vals):
-    return sum(a < b for a, b in zip(vals, vals[1:]))
-
-
-def windows(vals):
-    return [sum(items) for items in zip(vals, vals[1:], vals[2:])]
+def increases(vals, offset=1):
+    return sum(a < b for a, b in zip(vals, vals[offset:]))
 
 
 if __name__ == "__main__":
     vals = load_ints("inputs/day01.txt")
     print(f"Part 1: {increases(vals)}")
-    print(f"Part 2: {increases(windows(vals))}")
+    print(f"Part 2: {increases(vals, offset=3)}")
 
 
 # -- Tests --
@@ -24,4 +20,4 @@ def test_part_1():
 
 
 def test_part_2():
-    assert increases(windows(fixture)) == 5
+    assert increases(fixture, offset=3) == 5
