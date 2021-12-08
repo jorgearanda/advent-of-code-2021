@@ -1,4 +1,5 @@
-from statistics import median
+from math import ceil, floor
+from statistics import mean, median
 
 from loader import load_comma_ints
 
@@ -9,16 +10,12 @@ def min_fuel_simple(positions):
 
 
 def fuel(target, positions):
-    return int(sum(sum(range(abs(position - target) + 1)) for position in positions))
+    return sum(sum(range(abs(position - target) + 1)) for position in positions)
 
 
 def min_fuel_increasing(positions):
-    optimal_fuel = 1_000_000_000
-    for target in range(min(positions), max(positions)):
-        target_fuel = fuel(target, positions)
-        if target_fuel > optimal_fuel:
-            return optimal_fuel
-        optimal_fuel = target_fuel
+    optimal = mean(positions)
+    return min(fuel(floor(optimal), positions), fuel(ceil(optimal), positions))
 
 
 if __name__ == "__main__":
